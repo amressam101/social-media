@@ -1,0 +1,85 @@
+<div class="rounded-2xl bg-white p-4 sm:p-6">
+    <div class="mb-4 text-center lg:hidden">
+        <h1 class="text-3xl font-extrabold tracking-tight text-brand">Route Posts</h1>
+        <p class="mt-1 text-base font-medium leading-snug text-slate-700">Connect with friends and the world around
+            you on Route Posts.</p>
+    </div>
+    <div class="mb-5 grid grid-cols-2 rounded-xl bg-slate-100 p-1">
+        <button routerLink="/login" routerLinkActive="active" type="button"
+            class="rounded-lg py-2 text-sm font-extrabold transition text-slate-600 hover:text-slate-800">Login</button>
+        <button routerLink="/register" routerLinkActive="active" type="button"
+            class="rounded-lg cursor-pointer py-2 text-sm font-extrabold transition text-slate-600 hover:text-slate-800">Register</button>
+    </div>
+    <h2 class="text-2xl font-extrabold text-slate-900">Log in to Route Posts</h2>
+    <p class="mt-1 text-sm text-slate-500">Log in and continue your social journey.</p>
+
+    <form [formGroup]="loginForm" (ngSubmit)="signIn()" class="mt-5 space-y-3.5">
+        <!-- Email -->
+        <div>
+            @let email = loginForm.get("email");
+            <div class="relative">
+                <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 "><i
+                        class="fa-solid fa-at"></i></span>
+
+                <input type="email" placeholder="Email address" name="userEmail" formControlName="email"
+                    [class.border-slate-200]="!email?.invalid || !email?.touched"
+                    [class.border-rose-400]="email?.touched && email?.invalid"
+                    class="w-full rounded-xl border bg-slate-50 py-3 pl-11 pr-4 text-sm text-slate-800 outline-none transition focus:bg-white  focus:border-brand">
+            </div>
+            @if (email?.errors && email?.touched) {
+            @if (email?.getError("required")) {
+            <p class="mt-1 text-xs font-semibold text-rose-600">Email is required.</p>
+            }
+            @if (email?.getError("email")) {
+            <p class="mt-1 text-xs font-semibold text-rose-600">Please enter a valid email address.</p>
+            }
+            }
+
+        </div>
+        <!-- Password  -->
+        <div>
+            @let password = loginForm.get("password");
+            <div class="relative">
+                <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 "><i
+                        class="fa-solid fa-key"></i></span>
+                <input type="password" placeholder="Password" name="password" formControlName="password"
+                    [class.border-slate-200]="!password?.invalid || !password?.touched"
+                    [class.border-rose-400]="password?.touched && password?.invalid"
+                    class="w-full rounded-xl border bg-slate-50 py-3 pl-11 pr-4 text-sm text-slate-800 outline-none transition focus:bg-white  focus:border-brand">
+            </div>
+            @if (password?.errors && password?.touched) {
+            @if (password?.getError("required")) {
+            <p class="mt-1 text-xs font-semibold text-rose-600"> Password is required.</p>
+            }
+            }
+        </div>
+        <button [class]="{
+            'opacity-60' : isLoading,
+        }" [disabled]="isLoading"
+            class="w-full rounded-xl  py-3 text-base font-extrabolds text-white transition  bg-brand hover:bg-brand-dark cursor-pointer disabled:cursor-not-allowed">
+            Log in
+        </button>
+        <button type="button"
+            class="mx-auto block text-sm font-semibold text-br transition hover:underline  cursor-pointer">Forgot
+            password?</button>
+
+        <!-- error massge  -->
+        <div>
+            @if (errorMsg) {
+            <div class="rounded-xl border border-rose-200 bg-rose-50 px-4 py-2.5 text-sm font-semibold text-rose-700"
+                role="alert">
+                <span> {{errorMsg}} </span>
+            </div>
+            }
+        </div>
+        <!-- succes massge -->
+        <div>
+            @if (successMsg) {
+            <div class="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-2.5 text-sm font-semibold text-emerald-700"
+                role="alert">
+                <span> {{successMsg}} </span>
+            </div>
+            }
+        </div>
+    </form>
+</div>

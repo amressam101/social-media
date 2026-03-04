@@ -1,0 +1,55 @@
+<div class="mx-auto max-w-7xl px-3 py-3.5">
+    <main class="min-w-0">
+        <div class="grid xl:grid-cols-[240px_minmax(0,1fr)_300px] gap-4">
+            <!-- component sidebar nav -->
+            <app-side-nav [isSideNav]="true"></app-side-nav>
+            <section class="space-y-4">
+                <!-- sidbar nav in screan sm to md   -->
+                <app-side-nav [isSideNav]="false"></app-side-nav>
+                <!-- followers in screan sm to md  -->
+                <div class="mt-3 xl:hidden">
+                    <!-- log in typeScript to show the component -->
+                    <button type="button"
+                        class="inline-flex w-full items-center justify-between rounded-2xl border border-slate-200 bg-white px-4 py-3 text-left shadow-sm">
+                        <span class="inline-flex items-center gap-2 text-sm font-extrabold text-slate-900">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-users text-primary" aria-hidden="true">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                                <path d="M16 3.128a4 4 0 0 1 0 7.744"></path>
+                                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                            </svg>
+                            Suggested Friends
+                        </span>
+                        <span class="inline-flex items-center gap-2">
+                            <span
+                                class="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-bold text-slate-600">5</span>
+                            <span (click)="toggleSuggestedFriends()"
+                                class="text-xs font-bold text-primary cursor-pointer">
+                                @if(!showSuggestedFriends){
+                                Show
+                                }@else{
+                                Hide
+                                }
+                            </span>
+                        </span>
+                    </button>
+                    <!-- log in typescript -->
+                    @if (showSuggestedFriends) {
+                    <app-suggested-friends [isSideBar]="false"></app-suggested-friends>
+                    }
+                </div>
+                <!-- component create post -->
+                <app-create-post></app-create-post>
+                <!-- router let -->
+                <div class="my-4">
+                    <router-outlet></router-outlet>
+                </div>
+                <!-- component sing post -->
+            </section>
+            <!-- component Suggested Friends -->
+            <app-suggested-friends [isSideBar]="true"></app-suggested-friends>
+        </div>
+    </main>
+</div>

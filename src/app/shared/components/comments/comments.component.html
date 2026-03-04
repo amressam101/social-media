@@ -1,0 +1,158 @@
+@if (isLoading) {
+<div class="m-4">
+    <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+        <div class="flex items-center gap-3">
+            <div class="h-11 w-11 rounded-full bg-slate-200"></div>
+            <div class="flex-1 space-y-2">
+                <div class="h-4 w-1/2 rounded bg-slate-200"></div>
+                <div class="h-3 w-1/4 rounded bg-slate-200"></div>
+            </div>
+        </div>
+        <div class="mt-4 space-y-2">
+            <div class="h-4 w-1/2 rounded bg-slate-200"></div>
+        </div>
+    </div>
+</div>
+}@else {
+@for (comment of commentList; track comment._id) {
+<div class="mx-4 mb-4 rounded-2xl border border-slate-200 bg-slate-50 p-3">
+    <div class="flex items-start gap-2">
+        <!-- image of user -->
+        <img class="size-8 rounded-full object-cover " [src]="comment.commentCreator.photo"
+            [alt]="comment.commentCreator.name">
+        @if (!isUpdate) {
+        <div class="min-w-0 flex-1 rounded-2xl bg-white px-3 py-2">
+            <!-- Name of User  -->
+            <p class="truncate text-xs font-bold text-slate-900"> {{comment.commentCreator.username}}</p>
+            <!-- user comment -->
+            <p class="mt-0.5 whitespace-pre-wrap text-sm text-slate-700"> {{comment.content}}</p>
+        </div>
+        }@else {
+        <form (submit)="upadateComment($event , comment.post , comment._id)">
+            <div class="relative inline-block max-w-full rounded-2xl bg-page-bg px-3 py-2">
+                <div class="flex items-start justify-between gap-2">
+                    <div>
+                        <p class="text-xs font-bold text-slate-900">{{comment.commentCreator.name}}</p>
+                        <p class="text-xs text-slate-500">{{'@'+comment.commentCreator.username}} . time</p>
+                    </div>
+                </div>
+                <div class="mt-2 flex items-center gap-2">
+                    <input [formControl]="MyCommentValue"
+                        class="w-full rounded-full border border-slate-300 bg-white px-3 py-1.5 text-sm">
+                    <button type="submit" [disabled]="isLoadingUpdate || MyCommentValue.invalid"
+                        class="rounded-full bg-primary px-3 py-1.5 text-xs font-bold text-white hover:bg-primary disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer">
+                        Save
+                    </button>
+                    <button (click)="closeTheModel()"
+                        class="rounded-full border border-slate-300 bg-white px-3 py-1.5 text-xs font-bold text-slate-700 hover:bg-slate-100 cursor-pointer">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </form>
+        }
+        @if (myUserName == comment.commentCreator.username) {
+        <div class="relative">
+            <button (click)="toggelList()" type="button"
+                class="rounded-full p-1.5 text-slate-500 hover:bg-slate-100 hover:text-slate-700 cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-ellipsis" aria-hidden="true">
+                    <circle cx="12" cy="12" r="1"></circle>
+                    <circle cx="19" cy="12" r="1"></circle>
+                    <circle cx="5" cy="12" r="1"></circle>
+                </svg>
+            </button>
+            @if (menuList) {
+            <div
+                class="absolute right-0 z-20 mt-2 w-44 overflow-hidden rounded-xl border border-slate-200 bg-white py-1 shadow-lg">
+                <!-- btn Eid the comments  -->
+                <button (click)="startEdit(comment)"
+                    class="flex w-full items-center gap-2 px-3 py-1.5 text-left text-xs font-semibold text-slate-700 hover:bg-slate-50 cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-pencil" aria-hidden="true">
+                        <path
+                            d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z">
+                        </path>
+                        <path d="m15 5 4 4"></path>
+                    </svg>
+                    Edit
+                </button>
+                <!-- btn Delete the comment -->
+                <button (click)="showModel()"
+                    class="flex w-full items-center gap-2 px-3 py-1.5 text-left text-xs font-semibold text-rose-600 hover:bg-rose-50 cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-trash2 lucide-trash-2" aria-hidden="true">
+                        <path d="M10 11v6"></path>
+                        <path d="M14 11v6"></path>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
+                        <path d="M3 6h18"></path>
+                        <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                    Delete
+                </button>
+            </div>
+            }
+        </div>
+        }
+    </div>
+    @if (isDelete) {
+    <div class="fixed inset-0 z-[90] flex items-center justify-center bg-slate-900/60 p-4">
+        <div class="w-full max-w-[520px] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl">
+            <div class="flex items-center justify-between border-b border-slate-200 px-4 py-3">
+                <h4 class="text-base font-extrabold text-slate-900">Confirm action</h4>
+                <button type="button" (click)="closeTheModel()"
+                    class="inline-flex h-8 w-8 items-center justify-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-x" aria-hidden="true">
+                        <path d="M18 6 6 18"></path>
+                        <path d="m6 6 12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="flex items-start gap-3 p-4">
+                <div
+                    class="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-rose-100 text-rose-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-triangle-alert" aria-hidden="true">
+                        <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path>
+                        <path d="M12 9v4"></path>
+                        <path d="M12 17h.01"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h5 class="text-sm font-extrabold text-slate-900">Delete this comment?</h5>
+                    <p class="mt-1 text-sm text-slate-600">This comment will be permanently removed.</p>
+                </div>
+            </div>
+            <div class="flex items-center justify-end gap-2 border-t border-slate-200 px-4 py-3">
+                <button type="button" (click)="closeTheModel()" [disabled]="isLoadingDelete" [class]="{
+                    'opacity-60' : isLoadingDelete,
+                    'cursor-not-allowed' : isLoadingDelete
+                }"
+                    class="rounded-lg border border-slate-300 px-4 py-2 text-sm font-bold text-slate-700 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer">
+                    Cancel
+                </button>
+                <button type="button" (click)="deleteComment(comment._id , comment.post)" [disabled]="isLoadingDelete"
+                    [class]="{
+                    'opacity-60' : isLoadingDelete,
+                    'cursor-not-allowed' : isLoadingDelete
+                }"
+                    class="rounded-lg bg-rose-600 px-4 py-2 text-sm font-bold text-white transition hover:bg-rose-700 disabled:cursor-not-allowed disabled:opacity-70 cursor-pointer">
+                    Delete comment
+                </button>
+            </div>
+        </div>
+    </div>
+    }
+</div>
+}@empty {
+<div class="rounded-2xl border border-slate-200 bg-white p-5 text-center text-slate-500 shadow-sm m-2">
+    No comments yet. Be the first one to publish.
+</div>
+}
+}

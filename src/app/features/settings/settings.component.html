@@ -1,0 +1,107 @@
+<div class="mx-auto max-w-7xl px-3 py-3.5">
+    <main class="min-w-0">
+        <div class="mx-auto max-w-2xl">
+            <section class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+                <!-- header section -->
+                <div class="mb-5 flex items-center gap-3">
+                    <span
+                        class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary-light text-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-key-round" aria-hidden="true">
+                            <path
+                                d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z">
+                            </path>
+                            <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
+                        </svg>
+                    </span>
+                    <div>
+                        <h1 class="text-xl font-extrabold text-slate-900 sm:text-2xl">Change Password</h1>
+                        <p class="text-sm text-slate-500">Keep your account secure by using a strong password.</p>
+                    </div>
+                </div>
+                <!-- body section  -->
+                <!-- form -->
+                <form class="space-y-4" (ngSubmit)="update()" [formGroup]="updateForm">
+                    <!-- Current password -->
+                    @let password= updateForm.get("password");
+                    <label class="block">
+                        <span class="mb-1.5 block text-sm font-bold text-slate-700">
+                            Current password
+                        </span>
+                        <!-- border-rose-300 focus:border-rose-400 -->
+                        <input placeholder="Enter current password" formControlName="password"
+                            class="w-full rounded-xl border bg-slate-50 px-3 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 outline-none transition border-slate-200 focus:border-primary focus:bg-white"
+                            type="password">
+                        @if (password?.errors && password?.touched) {
+                        <span class="mt-1 block text-xs font-semibold text-rose-600">
+                            Current password isrequired.
+                        </span>
+                        }
+                    </label>
+                    <!-- New Password  -->
+                    @let newPassword = updateForm.get("newPassword");
+                    <label class="block">
+                        <span class="mb-1.5 block text-sm font-bold text-slate-700">
+                            New password
+                        </span>
+                        <!-- border-rose-300 focus:border-rose-400 -->
+                        <input placeholder="Enter New password" formControlName="newPassword"
+                            class="w-full rounded-xl border bg-slate-50 px-3 py-2.5 text-sm placeholder:text-slate-400 text-slate-800 outline-none transition border-slate-200 focus:border-primary focus:bg-white"
+                            type="password">
+                        @if (newPassword?.errors && newPassword?.touched) {
+                        <span class="mt-1 block text-xs font-semibold text-rose-600">
+                            Current password isrequired.
+                        </span>
+                        }@else {
+                        <span class="mt-1 block text-xs text-slate-500">At least 8 characters with uppercase, lowercase,
+                            number, and special character.</span>
+                        }
+                    </label>
+                    <!-- Confirm new password -->
+                    @let confirmPassword = updateForm.get("confirmPassword");
+                    <label class="block">
+                        <span class="mb-1.5 block text-sm font-bold text-slate-700">
+                            Confirm new password
+                        </span>
+                        <!-- border-rose-300 focus:border-rose-400 -->
+                        <input placeholder="Re-enter new password" formControlName="confirmPassword"
+                            class="w-full rounded-xl border bg-slate-50 px-3 py-2.5 text-sm text-slate-800 placeholder:text-slate-400 outline-none transition border-slate-200 focus:border-primary focus:bg-white"
+                            type="password">
+                        @if (confirmPassword?.touched && (confirmPassword?.errors || updateForm.getError("mismatch"))) {
+                        @if (confirmPassword?.getError("required")) {
+                        <span class="mt-1 block text-xs font-semibold text-rose-600">
+                            Current password isrequired.
+                        </span>
+
+                        }@else if (updateForm.getError("mismatch")) {
+                        <span class="mt-1 block text-xs font-semibold text-rose-600">Passwords do not match.</span>
+                        }
+                        }
+                    </label>
+                    <!-- error massge  -->
+                    <div>
+                        @if (errorMsg) {
+                        <div class="rounded-xl border border-rose-200 bg-rose-50 px-4 py-2.5 text-sm font-semibold text-rose-700"
+                            role="alert">
+                            <span> {{errorMsg}} </span>
+                        </div>
+                        }
+                    </div>
+                    <!-- massge for success -->
+                    @if (succesMsg) {
+                    <div
+                        class="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm font-semibold text-emerald-700">
+                        Password changed successfully.
+                    </div>
+                    }
+                    <!-- Update Password Btn -->
+                    <button type="submit" [disabled]="isLoading || updateForm.invalid "
+                        class="inline-flex w-full items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-bold text-white transition hover:bg-primary disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer">
+                        Update password
+                    </button>
+                </form>
+            </section>
+        </div>
+    </main>
+</div>

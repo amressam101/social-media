@@ -1,0 +1,186 @@
+<style>
+    @keyframes float {
+
+        0%,
+        100% {
+            transform: translateY(0px);
+        }
+
+        50% {
+            transform: translateY(-14px);
+        }
+    }
+
+    @keyframes fadeUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes pulse-ring {
+        0% {
+            box-shadow: 0 0 0 0 rgba(24, 119, 242, .30);
+        }
+
+        70% {
+            box-shadow: 0 0 0 20px rgba(24, 119, 242, .00);
+        }
+
+        100% {
+            box-shadow: 0 0 0 0 rgba(24, 119, 242, .00);
+        }
+    }
+
+    @keyframes gradient-shift {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        100% {
+            background-position: 200% 50%;
+        }
+    }
+
+    .float {
+        animation: float 3.6s ease-in-out infinite;
+    }
+
+    .fade-up-1 {
+        animation: fadeUp .5s .05s ease both;
+    }
+
+    .fade-up-2 {
+        animation: fadeUp .5s .20s ease both;
+    }
+
+    .fade-up-3 {
+        animation: fadeUp .5s .35s ease both;
+    }
+
+    .fade-up-4 {
+        animation: fadeUp .5s .50s ease both;
+    }
+
+    .pulse-ring {
+        animation: pulse-ring 2.2s ease-out infinite;
+    }
+
+    .top-gradient {
+        background: linear-gradient(90deg, #1877f2, #42a5f5, #1877f2);
+        background-size: 200% 100%;
+        animation: gradient-shift 2.5s linear infinite;
+    }
+</style>
+<div class="min-h-screen bg-[#f0f2f5] flex items-center justify-center px-4 py-10">
+
+    <!-- Subtle background blobs -->
+    <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        <div class="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-[#1877f2]/6 blur-3xl"></div>
+        <div class="absolute -bottom-40 -right-40 h-96 w-96 rounded-full bg-[#1877f2]/6 blur-3xl"></div>
+    </div>
+
+    <div class="w-full max-w-sm">
+
+        <!-- Card -->
+        <div class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl shadow-slate-300/30">
+
+            <!-- Animated top bar -->
+            <div class="top-gradient h-1.5 w-full"></div>
+
+            <div class="px-8 pb-8 pt-9 text-center">
+
+                <!-- Floating icon -->
+                <div class="fade-up-1 float relative mx-auto mb-7 h-32 w-32">
+                    <div class="pulse-ring absolute inset-0 rounded-full"></div>
+                    <div
+                        class="relative flex  h-full w-full flex-col items-center justify-center rounded-full border-4 border-white bg-gradient-to-br from-[#e7f3ff] to-[#c8dffe] shadow-lg">
+                        <span class="text-[44px] font-black leading-none tracking-tighter text-[#1877f2]">404</span>
+                        <div class="mt-1.5 h-[2px] w-10 rounded-full bg-[#1877f2]/25"></div>
+                        <svg class="mt-6" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                            fill="none" stroke="#1877f2" stroke-width="2.2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8" />
+                            <path d="m21 21-4.35-4.35" />
+                            <line x1="11" y1="8" x2="11" y2="12" />
+                            <circle cx="11" cy="15.5" r=".6" fill="#1877f2" stroke="none" />
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Heading -->
+                <div class="fade-up-2">
+                    <h1 class="text-[22px] font-black tracking-tight text-slate-900">
+                        Oops! Page Not Found
+                    </h1>
+                    <p class="mt-2 text-sm font-medium leading-relaxed text-slate-500">
+                        The page you're looking for doesn't exist<br />or may have been moved.
+                    </p>
+                </div>
+
+                <!-- Divider -->
+                <div class="fade-up-3 my-6 flex items-center gap-3">
+                    <div class="h-px flex-1 bg-slate-200"></div>
+                    <div class="flex h-6 w-6 items-center justify-center rounded-full bg-slate-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                            stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+                            <path
+                                d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                        </svg>
+                    </div>
+                    <div class="h-px flex-1 bg-slate-200"></div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="fade-up-4 flex flex-col gap-3 sm:flex-row sm:justify-center">
+
+                    <button (click)="goBack()"
+                        class="cursor-pointer group inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-5 py-2.5 text-sm font-bold text-slate-700 transition-all duration-200 hover:border-slate-300 hover:bg-slate-100 hover:shadow-sm active:scale-95">
+                        <svg class="transition-transform duration-200 group-hover:-translate-x-1"
+                            xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m15 18-6-6 6-6" />
+                        </svg>
+                        Go Back
+                    </button>
+
+                    <button routerLink="/home"
+                        class="cursor-pointer group inline-flex items-center justify-center gap-2 rounded-xl bg-[#1877f2] px-5 py-2.5 text-sm font-extrabold text-white shadow-md shadow-[#1877f2]/30 transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#166fe5] hover:shadow-lg hover:shadow-[#1877f2]/35 active:scale-95">
+                        <svg class="transition-transform duration-200 group-hover:scale-110"
+                            xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+                            <path
+                                d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                        </svg>
+                        Back to Feed
+                    </button>
+
+                </div>
+            </div>
+
+            <!-- Brand footer -->
+            <div class="flex items-center justify-center gap-2 border-t border-slate-100 bg-slate-50/80 px-6 py-3.5">
+                <div class="flex h-6 w-6 items-center justify-center rounded-lg bg-[#1877f2] shadow-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                        stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+                        <path
+                            d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                    </svg>
+                </div>
+                <span class="text-xs font-extrabold text-slate-600">Route Posts</span>
+                <span class="text-slate-300 text-xs">·</span>
+                <span class="text-xs font-medium text-slate-400">Connect with the world around you</span>
+            </div>
+
+        </div>
+
+    </div>
+</div>
