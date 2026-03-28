@@ -198,3 +198,7 @@ This application integrates with a RESTful backend API. Key endpoints include:
 
 - GitHub: [@amressam101](https://github.com/amressam101)
 - Project Link: [https://github.com/amressam101/social-media](https://github.com/amressam101/social-media)
+
+## 🌐 Live Demo :
+
+👉 https://social-media-phi-wheat.vercel.app/
