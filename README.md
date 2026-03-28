@@ -1,59 +1,200 @@
-# SocialMedia
+# 📱 Social Media Web Application
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.16.
+A feature-rich social media platform built with **Angular 20**, enabling users to create posts, interact through likes and comments, and manage their profiles with a focus on security and responsive design.
 
-## Development server
+---
 
-To start a local development server, run:
+## ✨ Key Features
+
+### 🔐 Authentication & Security
+
+- User registration and login system
+- Route protection using Angular Guards
+- Secure HTTP request handling with Interceptors
+
+### 📝 Post Management
+
+- Create, update, and delete posts
+- Real-time post feed
+- View detailed post information
+
+### 💬 Engagement & Interaction
+
+- Comment on posts
+- Edit and delete your own comments
+- View all comments on any post
+- User mentions and interactions
+
+### 👤 User Profile
+
+- View and edit profile information
+- Upload and update profile photo
+- View followers and following lists
+- Personalized user dashboard
+
+### 🔔 Notifications
+
+- Real-time notification system
+- Unread notification indicators
+
+### ⚙️ Account Settings
+
+- Change password functionality
+
+### 🎨 UI/UX
+
+- Fully responsive design (mobile, tablet, desktop)
+- Modern and clean interface
+- Toast notifications for user actions (ngx-toastr)
+
+---
+
+## 🛠️ Tech Stack
+
+| Technology       | Version | Purpose                     |
+| ---------------- | ------- | --------------------------- |
+| **Angular**      | 20.x    | Frontend framework          |
+| **TypeScript**   | Latest  | Type-safe JavaScript        |
+| **Tailwind CSS** | Latest  | Utility-first CSS framework |
+| **ngx-toastr**   | Latest  | Toast notifications         |
+| **Font Awesome** | Latest  | Icon library                |
+| **Flowbite**     | Latest  | Tailwind components         |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v18 or higher)
+- npm or yarn
+- Angular CLI (`npm install -g @angular/cli`)
+
+### Installation
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/amressam101/social-media.git
+   cd social-media
+   ```
+
+2. **Install dependencies:**
+
+   ```bash
+   npm install
+   ```
+
+3. **Run the development server:**
+
+   ```bash
+   ng serve
+   ```
+
+4. **Open your browser:**
+   ```
+   http://localhost:4200/
+   ```
+
+---
+
+## 📂 Project Structure
 
 ```bash
-ng serve
+src/
+├── app/
+│   ├── core/                    # Core module (singleton services)
+│   │   ├── auth/                # Authentication logic
+│   │   ├── guards/              # Route guards (auth-guard, no-auth-guard)
+│   │   ├── interceptors/        # HTTP interceptors (auth, error, loading)
+│   │   ├── layouts/             # Layout components (auth-layout, blank-layout)
+│   │   ├── models/              # TypeScript interfaces & models
+│   │   └── services/            # API services (auth, posts, comments, users)
+│   │
+│   ├── features/                # Feature modules (lazy-loaded)
+│   │   ├── home/                # Home page with post feed
+│   │   ├── profile/             # User profile page
+│   │   ├── settings/            # Account settings
+│   │   ├── notifications/       # Notifications center
+│   │   ├── post-details/        # Single post view
+│   │   ├── all-suggested-friends/  # Friend suggestions
+│   │   ├── unread-notification/ # Unread notifications
+│   │   └── not-found/           # 404 page
+│   │
+│   ├── shared/                  # Shared module (reusable components)
+│   │   ├── components/
+│   │   │   ├── navbar/          # Top navigation bar
+│   │   │   ├── side-nav/        # Sidebar navigation
+│   │   │   ├── create-post/     # Post creation form
+│   │   │   ├── feed-post/       # Post feed list
+│   │   │   ├── single-post/     # Individual post card
+│   │   │   ├── comments/        # Comments section
+│   │   │   ├── saved-posts/     # Saved posts list
+│   │   │   ├── suggested-friends/  # Friend suggestions widget
+│   │   │   └── community/       # Community features
+│   │   ├── directives/          # Custom Angular directives
+│   │   └── pipes/               # Custom Angular pipes
+│   │
+│   ├── app.routes.ts            # Application routing
+│   ├── app.config.ts            # App configuration
+│   ├── app.component.ts         # Root component
+│   └── app.component.html       # Root template
+│
+├── environments/                # Environment configurations
+│   ├── environment.ts           # Development environment
+│   └── environment.prod.ts      # Production environment
+│
+├── assets/                      # Static assets (images, fonts)
+├── index.html                   # Main HTML file
+├── main.ts                      # Application entry point
+└── styles.css                   # Global styles
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## 🏗️ Architecture & Design Patterns
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Core Principles
 
-```bash
-ng generate component component-name
-```
+- **Modular Architecture**: Separation into Core, Shared, and Feature modules
+- **Lazy Loading**: Feature modules loaded on-demand for better performance
+- **Separation of Concerns**: Clear distinction between smart and presentational components
+- **Dependency Injection**: Angular's DI system for service management
+- **Reactive Programming**: RxJS for asynchronous operations
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Security Implementation
 
-```bash
-ng generate --help
-```
+- **HTTP Interceptors**: Automatic token injection and error handling
+- **Route Guards**: Prevent unauthorized access to protected routes
+- **JWT Authentication**: Secure token-based authentication
+- **XSS Protection**: Input sanitization and validation
 
-## Building
+---
 
-To build the project run:
+## 🌐 Live Demo
 
-```bash
-ng build
-```
+🔗 **[View Live Application](https://social-media-phi-wheat.vercel.app/)**
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## 📝 API Integration
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+This application integrates with a RESTful backend API. Key endpoints include:
 
-```bash
-ng test
-```
+- `POST /auth/login` - User authentication
+- `POST /auth/register` - User registration
+- `GET /posts` - Fetch all posts
+- `POST /posts` - Create new post
+- `PUT /posts/:id` - Update post
+- `DELETE /posts/:id` - Delete post
+- `POST /posts/:id/comments` - Add comment
+- `GET /notifications` - Fetch notifications
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## 👨‍💻 Developer
 
-```bash
-ng e2e
-```
+**Amr Essam**
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- GitHub: [@amressam101](https://github.com/amressam101)
+- Project Link: [https://github.com/amressam101/social-media](https://github.com/amressam101/social-media)
